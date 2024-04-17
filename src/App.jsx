@@ -2,7 +2,23 @@ import React, { useState } from 'react';
 import Form from './components/Form';
 import StudentList from './components/StudentList';
 
+
+
 const App = () => {
+
+  const [action, setAction] = useState('');
+const [selectedItemId, setSelectedItemId] = useState('');
+
+const handleItemSelection = (action, selectedItemId) => {
+  setAction(action);
+  setSelectedItemId(selectedItemId);
+};
+
+
+const restaurarPlaces = (pgm) => {
+  pgm === 'Grau' ? setGPlaces(gPlaces + 1) : setNGPlaces(ngPlaces + 1);
+};
+
 
   const [detallsEstudiant, setDetallsEstudiant] = useState([]);
 
@@ -60,16 +76,23 @@ const App = () => {
           </li>
         </ul>
       </div>
-      <Form
+
+     <Form
   tipusEstudiantSelect={tipusEstudiant}
   setPlacesDisponibles={setPlacesDisponibles}
   placesActuals={tipusEstudiant === 'PostGrau' ? gPlaces : ngPlaces}
   setDetallsEstudiant={setDetallsEstudiant}
+  handleItemSelection={handleItemSelection}
 />
+
 
 <StudentList
   detallsEstudiant={detallsEstudiant}
   setDetallsEstudiant={setDetallsEstudiant}
+  action={action}
+  setAction={setAction}
+  selectedItemId={selectedItemId}
+  restaurarPlaces={restaurarPlaces}
 />
     </div>
     
